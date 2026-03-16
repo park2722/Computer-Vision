@@ -1,4 +1,4 @@
-# My Video Recorder
+# Mode Switching Camera(가제)
 
 OpenCV와 Python을 이용하여 웹캠 영상을 확인하고 녹화할 수 있는 간단한 Video Recorder 프로그램입니다.
 
