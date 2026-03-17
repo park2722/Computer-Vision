@@ -13,6 +13,7 @@ fps = 20
 # 코덱 설정
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
+
 save_path = "C:/Users/user/Desktop/My project/Computer Vision/Mode_Switching_Camera/Capture" # 캡처 파일 저장 경로
 # 영상 저장 객체
 out = cv2.VideoWriter(save_path+"/output.avi", fourcc, fps, (width, height))
@@ -24,32 +25,35 @@ capture_count = 0  # 파일 이름용
 while True:
 
     ret, frame = cap.read()
+    display_frame = frame.copy()
     if not ret:
         break
+
+    if gray_mode:
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        frame = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
+        display_frame = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
 
     # Record 모드일 때
     if recording:
 
         # 빨간 원 표시
-        cv2.circle(frame, (30, 30), 10, (0, 0, 255), -1)
+        cv2.circle(display_frame, (30, 30), 10, (0, 0, 255), -1)
         # 영상 파일에 저장
-        out.write(frame)
+        out.write(display_frame)
 
     elif not recording:
         # 녹화 중이 아닐 때는 "Camera" 텍스트 표시
-        cv2.putText(frame, "Camera", (10, 30),
+        cv2.putText(display_frame, "Camera", (10, 30),
             cv2.FONT_HERSHEY_SIMPLEX,
             1, (0, 0, 0), 4)   # 검은색 (두껍게)
 
         cv2.putText(frame, "Camera", (10, 30),
             cv2.FONT_HERSHEY_SIMPLEX,
             1, (255, 255, 255), 2)  # 흰색 (얇게)
-
-    if gray_mode:
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        frame = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
+        
     # 화면 출력
-    cv2.imshow("Video Recorder", frame)
+    cv2.imshow("Video Recorder", display_frame)
 
     key = cv2.waitKey(1) & 0xFF
     
@@ -78,7 +82,7 @@ while True:
             continue
         else:
             filename = f"capture_{capture_count}.png"
-            cv2.imwrite(save_path + "/" + filename, frame)
+            cv2.imwrite(save_path + "/" + filename, display_frame)
             print(f"{filename} saved")
             capture_count += 1
 
