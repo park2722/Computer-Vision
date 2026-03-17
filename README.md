@@ -108,3 +108,4 @@ It allows users to preview webcam input, record video, apply filters, and captur
 
 ![grayscale_capture](https://github.com/park2722/Mode_Switching_Camera/blob/main/Capture/capture_0.png)  
 ![vanilla_capture](https://github.com/park2722/Mode_Switching_Camera/blob/main/Capture/capture_1.png)  
+![video](https://github.com/user-attachments/assets/2b76dae4-da3f-4c9c-bf56-06cc842ae5ba)
