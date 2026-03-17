@@ -13,8 +13,9 @@ fps = 20
 # 코덱 설정
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
+save_path = "C:/Users/user/Desktop/My project/Computer Vision/Mode_Switching_Camera/Capture" # 캡처 파일 저장 경로
 # 영상 저장 객체
-out = cv2.VideoWriter('output.avi', fourcc, fps, (width, height))
+out = cv2.VideoWriter(save_path+"/output.avi", fourcc, fps, (width, height))
 
 recording = False  # Record 모드 여부
 gray_mode = False # Grayscale 모드 여부
@@ -51,7 +52,7 @@ while True:
     cv2.imshow("Video Recorder", frame)
 
     key = cv2.waitKey(1) & 0xFF
-
+    
     # ESC → 종료
     if key == 27:
         break
@@ -77,12 +78,13 @@ while True:
             continue
         else:
             filename = f"capture_{capture_count}.png"
-            cv2.imwrite(filename, frame)
+            cv2.imwrite(save_path + "/" + filename, frame)
             print(f"{filename} saved")
             capture_count += 1
 
 
 # 자원 해제
+
 cap.release()
 out.release()
 cv2.destroyAllWindows()
